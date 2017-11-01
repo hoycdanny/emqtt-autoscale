@@ -1,6 +1,6 @@
 FROM alpine:3.5
 
-MAINTAINER Danny <hoyc.danny@gmail.com>
+MAINTAINER Huang Rui <vowstar@gmail.com>, Turtle <turtled@emqtt.io>
 
 ENV EMQ_VERSION=v2.3-beta.1
 
@@ -76,9 +76,9 @@ RUN set -ex \
         ncurses-terminfo-base \
         ncurses-terminfo \
         ncurses-libs \
-        readline \
+        readline
     # add latest rebar
-    && git clone -b ${EMQ_VERSION} https://github.com/emqtt/emq-relx.git /emqttd \
+RUN git clone -b release https://github.com/emqtt/emq-relx.git /emqttd \
     && cd /emqttd \
     && make \
     && mkdir -p /opt && mv /emqttd/_rel/emqttd /opt/emqttd \
@@ -87,7 +87,7 @@ RUN set -ex \
     && chmod +x /opt/emqttd/start.sh \
     && ln -s /opt/emqttd/bin/* /usr/local/bin/ \
     # removing fetch deps and build deps
-    && apk --purge del .build-deps .fetch-deps \
+RUN apk --purge del .build-deps .fetch-deps \
     && rm -rf /var/cache/apk/*
 
 WORKDIR /opt/emqttd
