@@ -190,6 +190,9 @@ docker run --rm -ti --name emq -p 18083:18083 -p 1883:1883 -p 4369:4369 \
     --sysctl net.ipv4.tcp_fin_timeout=15
 
 ```
+Kubernetes
+```
 kubectl create namespace emqtt
 kubectl apply -f emqtt.yaml
 kubectl port-forward -n emqtt emqtt-0 8080:18083
+```
